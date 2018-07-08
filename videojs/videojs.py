@@ -97,7 +97,9 @@ class videojsXBlock(XBlock):
         frag = Fragment(html)
         frag.add_css(self.load_resource("static/css/video-js.min.css"))
         frag.add_css(self.load_resource("static/css/videojs.css"))
+        frag.add_css(self.load_resource("static/css/plugin.css"))
         frag.add_javascript(self.load_resource("static/js/video-js.js"))
+        frag.add_javascript(self.load_resource("static/js/plugin.js"))
         frag.add_javascript(self.load_resource("static/js/videojs_view.js"))
         frag.initialize_js('videojsXBlockInitView')
         return frag
