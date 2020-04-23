@@ -14,11 +14,13 @@ from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
 
+@XBlock.wants('completion')
 class videojsXBlock(XBlock):
     '''
     Icon of the XBlock. Values : [other (default), video, problem]
     '''
     icon_class = "video"
+    completion_mode = XBlockCompletionMode.COMPLETABLE
 
     '''
     Fields
