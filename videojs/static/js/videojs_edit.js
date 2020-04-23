@@ -12,6 +12,7 @@ function videojsXBlockInitStudio(runtime, element) {
             'allow_download': $('#videojs_edit_allow_download').val(),
             'source_text': $('#videojs_edit_source_text').val(),
             'source_url': $('#videojs_edit_source_url').val(),
+            'subtitle_text': $('#videojs_edit_subtitle_text').val(),
             'start_time': $('#videojs_edit_start_time').val(),
             'end_time': $('#videojs_edit_end_time').val()
         };

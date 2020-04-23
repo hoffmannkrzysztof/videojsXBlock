@@ -16,13 +16,15 @@ def package_data(pkg, root):
 
 setup(
     name='videojs-xblock',
-    version='0.1.1',
+    version='1.0.2',
     description='XBlock to use the Video.js player in edX, instead of the default one.',
     packages=[
         'videojs',
     ],
     install_requires=[
         'XBlock',
+        'pycaption==0.7.3',
+        'cssutils==0.9.10'
     ],
     entry_points={
         'xblock.v1': [

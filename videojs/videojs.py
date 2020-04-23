@@ -3,9 +3,17 @@
 import pkg_resources
 from django.template import Context, Template
 
+import os
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer, String, Boolean
 from xblock.fragment import Fragment
+from django.core.files.storage import FileSystemStorage
+import uuid
+from django.core.files.base import ContentFile
+from django.conf import settings
+from pycaption import detect_format
+from pycaption.webvtt import WebVTTWriter
+import codecs
 
 class videojsXBlock(XBlock):
 
@@ -22,13 +30,13 @@ class videojsXBlock(XBlock):
         scope=Scope.settings,
         help="This name appears in the horizontal navigation at the top of the page.")
 
-    url = String(display_name="Video URL",
-        default="http://vjs.zencdn.net/v/oceans.mp4",
+    url = String(display_name="Youtube URL or Navoica movie ID",
+        default="7b465d7b-6118-4b8a-80cd-3f40748fab74",
         scope=Scope.content,
-        help="The URL for your video.")
+        help="Enter url from website youtube.com or use id number previously uploaded movie")
     
     allow_download = Boolean(display_name="Video Download Allowed",
-        default=True,
+        default=False,
         scope=Scope.content,
         help="Allow students to download this video.")
     
@@ -36,6 +44,16 @@ class videojsXBlock(XBlock):
         default="",
         scope=Scope.content,
         help="Add a download link for the source file of your video. Use it for example to provide the PowerPoint or PDF file used for this video.")
+
+    subtitle_text = String(display_name="Subtitle - Polish",
+                         default="",
+                         scope=Scope.content,
+                         help="Paste subtitles VVT")
+
+    subtitle_url = String(display_name="Subtitle - URL - Polish",
+                           default="",
+                           scope=Scope.content,
+                           help="")
     
     source_url = String(display_name="Source document URL",
         default="",
@@ -87,19 +105,21 @@ class videojsXBlock(XBlock):
         
         context = {
             'display_name': self.display_name,
-            'url': fullUrl,
+            'url': fullUrl.strip(),
             'allow_download': self.allow_download,
             'source_text': self.source_text,
+            'subtitle_url': self.subtitle_url,
             'source_url': self.source_url
         }
         html = self.render_template('static/html/videojs_view.html', context)
         
         frag = Fragment(html)
-        frag.add_css(self.load_resource("static/css/video-js.min.css"))
-        frag.add_css(self.load_resource("static/css/videojs.css"))
-        frag.add_css(self.load_resource("static/css/plugin.css"))
-        frag.add_javascript(self.load_resource("static/js/video-js.js"))
-        frag.add_javascript(self.load_resource("static/js/plugin.js"))
+        frag.add_css(self.load_resource("static/css/video-js.css"))
+        frag.add_css(self.load_resource("static/css/qualityselector.css"))
+        frag.add_javascript(self.load_resource("static/js/video.js"))
+        frag.add_javascript(self.load_resource("static/js/pl.js"))
+        frag.add_javascript(self.load_resource("static/js/qualityselector.js"))
+        frag.add_javascript(self.load_resource("static/js/youtube.js"))
         frag.add_javascript(self.load_resource("static/js/videojs_view.js"))
         frag.initialize_js('videojsXBlockInitView')
         return frag
@@ -111,10 +131,12 @@ class videojsXBlock(XBlock):
         """
         context = {
             'display_name': self.display_name,
-            'url': self.url,
+            'url': self.url.strip(),
             'allow_download': self.allow_download,
             'source_text': self.source_text,
-            'source_url': self.source_url,
+            'source_url': self.source_url.strip(),
+            'subtitle_text': self.subtitle_text,
+            'subtitle_url': self.subtitle_url,
             'start_time': self.start_time,
             'end_time': self.end_time
         }
@@ -131,10 +153,29 @@ class videojsXBlock(XBlock):
         The saving handler.
         """
         self.display_name = data['display_name']
-        self.url = data['url']
+        self.url = data['url'].strip()
         self.allow_download = True if data['allow_download'] == "True" else False # Str to Bool translation
         self.source_text = data['source_text']
-        self.source_url = data['source_url']
+
+        if not os.path.exists(settings.MEDIA_ROOT +'subtitle/polish/'):
+            os.makedirs(settings.MEDIA_ROOT +'subtitle/polish/')
+
+        self.subtitle_url = ''
+        if data['subtitle_text']:
+            reader = detect_format(data['subtitle_text'])
+            if reader:
+                subtitle = WebVTTWriter().write(reader().read(data['subtitle_text']))
+
+                filename = str(uuid.uuid4())
+
+                f = codecs.open(settings.MEDIA_ROOT +'subtitle/polish/'+filename, 'w', 'utf-8')
+                f.write(subtitle)
+                f.close()
+
+                self.subtitle_url = settings.MEDIA_URL+'subtitle/polish/'+filename
+
+        self.source_url = data['source_url'].strip()
+        self.subtitle_text = data['subtitle_text']
         self.start_time = ''.join(data['start_time'].split()) # Remove whitespace
         self.end_time = ''.join(data['end_time'].split()) # Remove whitespace
         

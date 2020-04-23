@@ -3,24 +3,25 @@ videojsXBlock
 
 ### Description ###
 
-This XBlock provides the Video.js player (www.videojs.com) instead of the default one.
+This XBlock provides the Video.js 7.6.6 player (www.videojs.com) instead of the default one.
 
 - True full screen allowed
 - More video speeds available : | 0.75 | 1 | 1.25 | 1.5 | 1.75 | 2 | by default
+- Youtube playback support 
+- Quality selector
 - (Optional) Source document download button, for example to provide your PPT or PDF file
 
 ### Customize the XBlock ###
 
 - The list of playbackRates can be edited in `videojsXBlock / videojs / static / js / videojs_view.js`
-- By default, Video Download Allowed is set on True. The default value can  be changed in `videojsXBlock / videojs / videojs.py`
 
 ### Install / Update the XBlock ###
-See https://github.com/polimediaupv/paellaXBlock installation
+See https://github.com/OPI-PIB/videojsXBlock installation
 
     # Move to the folder where you want to download the XBlock
     cd /edx/app/edxapp
     # Download the XBlock
-    sudo -u edxapp git clone https://github.com/MarCnu/videojsXBlock.git
+    sudo -u edxapp git clone hhttps://github.com/OPI-PIB/videojsXBlock.git
     # Install the XBlock
     sudo -u edxapp /edx/bin/pip.edxapp install videojsXBlock/
     # Upgrade the XBlock if it is already installed, using --upgrade
