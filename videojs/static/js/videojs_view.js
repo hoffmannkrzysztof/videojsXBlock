@@ -25,7 +25,7 @@ function videojsXBlockInitView(runtime, element) {
     var regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     var match = url.match(regex);
 
-    if(!match) {
+    if (!match) {
 
         var sources = [
             {

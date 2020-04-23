@@ -1,6 +1,7 @@
 """Setup for videojsXBlock."""
 
 import os
+
 from setuptools import setup
 
 

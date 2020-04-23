@@ -1,8 +1,8 @@
 <div class="videojs_block">
     <h2>{{ display_name }}</h2>
-    <video id="navoica-video" controls class="video-js vjs-fluid"
-           preload="auto"
-           data-setup='{"language":"pl"}'>
+    <video class="video-js vjs-fluid" controls data-setup='{"language":"pl"}'
+           id="navoica-video"
+           preload="auto">
 
         {% if 'youtube' in url or 'youtu.be' in url %}
         <source src="{{ url }}"
@@ -17,8 +17,8 @@
             <a href="http://videojs.com/html5-video-support/" target="_blank">obsługuje
                 wideo HTML5</a></p>
         {% if subtitle_url %}
-        <track kind='captions' src='{{ subtitle_url }}'
-               srclang='pl' label='Polski' default/>
+        <track default kind='captions'
+               label='Polski' src='{{ subtitle_url }}' srclang='pl'/>
         {% endif %}
     </video>
 </div>
