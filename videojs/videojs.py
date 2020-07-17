@@ -13,6 +13,7 @@ from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Scope, String
 from xblock.fragment import Fragment
+from HTMLParser import HTMLParser
 
 @XBlock.wants('completion')
 class videojsXBlock(XBlock):
@@ -176,7 +177,9 @@ class videojsXBlock(XBlock):
                 f = codecs.open(
                     settings.MEDIA_ROOT + 'subtitle/polish/' + filename, 'w',
                     'utf-8')
-                f.write(subtitle)
+
+                h = HTMLParser()
+                f.write(h.unescape(subtitle))
                 f.close()
 
                 self.subtitle_url = settings.MEDIA_URL + 'subtitle/polish/' + filename
