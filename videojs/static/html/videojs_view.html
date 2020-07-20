@@ -1,7 +1,7 @@
 <div class="videojs_block">
     <h2>{{ display_name }}</h2>
     <video oncontextmenu="return false;" class="video-js vjs-fluid" controls data-setup='{"language":"pl"}'
-           id="navoica-video"
+           id="{{ uid }}"
            preload="auto">
 
         {% if 'youtube' in url or 'youtu.be' in url %}

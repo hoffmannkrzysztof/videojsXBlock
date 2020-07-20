@@ -112,7 +112,8 @@ class videojsXBlock(XBlock):
             'allow_download': self.allow_download,
             'source_text': self.source_text,
             'subtitle_url': self.subtitle_url,
-            'source_url': self.source_url
+            'source_url': self.source_url,
+            'uid': uuid.uuid4().hex
         }
         html = self.render_template('static/html/videojs_view.html', context)
 
