@@ -245,6 +245,9 @@
                             this.player.controlBar.el().insertBefore(containerElement, fullScreenToggle);
 
                             this.player.addClass('vjs-qualityselector');
+
+                            this.onQualitySelect(options.formats[0]);
+                            this.onToggleDropdown();
                         }
                     }]);
 

@@ -1,9 +1,9 @@
+{% load i18n %}
 <div class="videojs_block">
     <h2>{{ display_name }}</h2>
     <video oncontextmenu="return false;" class="video-js vjs-fluid" controls data-setup='{"language":"pl"}'
            id="{{ uid }}"
            preload="auto">
-
         {% if 'youtube' in url or 'youtu.be' in url %}
         <source src="{{ url }}"
                 type="video/youtube"/>
@@ -12,13 +12,10 @@
                 src="https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/opiopc/b/OPI_public_1/o/videos%2F{{ url }}"
                 type="video/mp4"/>
         {% endif %}
-        <p class="vjs-no-js">Aby obejrzeć ten film, włącz JavaScript i rozważ
-            uaktualnienie do przeglądarki internetowej która
-            <a href="http://videojs.com/html5-video-support/" target="_blank">obsługuje
-                wideo HTML5</a></p>
-        {% if subtitle_url %}
-        <track default kind='captions'
-               label='Polski' src='{{ subtitle_url }}' srclang='pl'/>
-        {% endif %}
+        <p class="vjs-no-js">{% trans "To view this video, please enable JavaScript and consider upgrading to a web
+            browser that supports HTML5 video" %}</p>
+        {% for lang, url in subtitles_url.items %}
+        <track default kind='captions' src='{{ url }}' label="{{lang}}" srclang='{{lang}}'/>
+        {% endfor %}}
     </video>
 </div>

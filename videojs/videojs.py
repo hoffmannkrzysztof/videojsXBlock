@@ -3,6 +3,7 @@
 import codecs
 import os
 import uuid
+from HTMLParser import HTMLParser
 
 import pkg_resources
 from django.conf import settings
@@ -11,10 +12,13 @@ from pycaption import detect_format
 from pycaption.webvtt import WebVTTWriter
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
-from xblock.fields import Boolean, Scope, String
+from xblock.fields import Scope, String, Dict
 from xblock.fragment import Fragment
-from HTMLParser import HTMLParser
+from webob import Response
+import json
+import hashlib
 
+@XBlock.needs('i18n')
 @XBlock.wants('completion')
 class videojsXBlock(XBlock):
     '''
@@ -22,6 +26,10 @@ class videojsXBlock(XBlock):
     '''
     icon_class = "video"
     completion_mode = XBlockCompletionMode.COMPLETABLE
+
+    languages = [
+        'pl', 'en', 'fr', 'de'
+    ]
 
     '''
     Fields
@@ -36,44 +44,27 @@ class videojsXBlock(XBlock):
                  scope=Scope.content,
                  help="Enter url from website youtube.com or use id number previously uploaded movie")
 
-    allow_download = Boolean(display_name="Video Download Allowed",
-                             default=False,
-                             scope=Scope.content,
-                             help="Allow students to download this video.")
-
-    source_text = String(display_name="Source document button text",
-                         default="",
-                         scope=Scope.content,
-                         help="Add a download link for the source file of your video. Use it for example to provide the PowerPoint or PDF file used for this video.")
-
+    # old fallback
     subtitle_text = String(display_name="Subtitle - Polish",
                            default="",
                            scope=Scope.content,
                            help="Paste subtitles VVT")
 
+    # old fallback
     subtitle_url = String(display_name="Subtitle - URL - Polish",
                           default="",
                           scope=Scope.content,
                           help="")
 
-    source_url = String(display_name="Source document URL",
-                        default="",
-                        scope=Scope.content,
-                        help="Add a download link for the source file of your video. Use it for example to provide the PowerPoint or PDF file used for this video.")
+    subtitles = Dict(display_name="Subtitles RAW",
+                     default={},
+                     scope=Scope.content
+                     )
 
-    start_time = String(display_name="Start time",
-                        default="",
-                        scope=Scope.content,
-                        help="The start and end time of your video. Equivalent to 'video.mp4#t=startTime,endTime' in the url.")
-
-    end_time = String(display_name="End time",
-                      default="",
-                      scope=Scope.content,
-                      help="The start and end time of your video. Equivalent to 'video.mp4#t=startTime,endTime' in the url.")
-
-    '''
-    Util functions
-    '''
+    subtitles_url = Dict(display_name="Subtitles URL",
+                         default={},
+                         scope=Scope.content
+                         )
 
     def load_resource(self, resource_path):
         """
@@ -99,23 +90,23 @@ class videojsXBlock(XBlock):
         The primary view of the XBlock, shown to students
         when viewing courses.
         """
-        fullUrl = self.url
-        if self.start_time != "" and self.end_time != "":
-            fullUrl += "#t=" + self.start_time + "," + self.end_time
-        elif self.start_time != "":
-            fullUrl += "#t=" + self.start_time
-        elif self.end_time != "":
-            fullUrl += "#t=0," + self.end_time
+
+        subtitles_url = {}
+        for lang, subtitle_text in dict(self.subtitles).items():
+            file = self.create_subtitles_file(subtitle_text)
+            if file:
+                subtitles_url[lang] = file
+            elif lang == 'pl' and self.subtitle_url:
+                """Stara wersja zawierala jedynie napisy w jezyku PL. Dlatego musimy byc wsteczni kompatybilni"""
+                subtitles_url['pl'] = file
 
         context = {
             'display_name': self.display_name,
-            'url': fullUrl.strip(),
-            'allow_download': self.allow_download,
-            'source_text': self.source_text,
-            'subtitle_url': self.subtitle_url,
-            'source_url': self.source_url,
-            'uid': uuid.uuid4().hex
+            'url': self.url,
+            'uid': uuid.uuid4().hex,
+            'subtitles_url': subtitles_url,
         }
+
         html = self.render_template('static/html/videojs_view.html', context)
 
         frag = Fragment(html)
@@ -130,21 +121,20 @@ class videojsXBlock(XBlock):
         return frag
 
     def studio_view(self, context=None):
-        """
-        The secondary view of the XBlock, shown to teachers
-        when editing the XBlock.
-        """
+
+        if not 'pl' in self.subtitles and self.subtitle_url:
+            with open(self.subtitle_url, 'r') as f:
+                data = f.read()
+                self.subtitles['pl'] = data
+
         context = {
             'display_name': self.display_name,
             'url': self.url.strip(),
-            'allow_download': self.allow_download,
-            'source_text': self.source_text,
-            'source_url': self.source_url.strip(),
-            'subtitle_text': self.subtitle_text,
-            'subtitle_url': self.subtitle_url,
-            'start_time': self.start_time,
-            'end_time': self.end_time
+            'languages': self.languages,
+            'subtitles': self.subtitles
+
         }
+
         html = self.render_template('static/html/videojs_edit.html', context)
 
         frag = Fragment(html)
@@ -159,38 +149,40 @@ class videojsXBlock(XBlock):
         """
         self.display_name = data['display_name']
         self.url = data['url'].strip()
-        self.allow_download = True if data[
-                                          'allow_download'] == "True" else False  # Str to Bool translation
-        self.source_text = data['source_text']
 
-        if not os.path.exists(settings.MEDIA_ROOT + 'subtitle/polish/'):
-            os.makedirs(settings.MEDIA_ROOT + 'subtitle/polish/')
+        for language in self.languages:
 
-        self.subtitle_url = ''
-        if data['subtitle_text']:
-            reader = detect_format(data['subtitle_text'])
-            if reader:
-                subtitle = WebVTTWriter().write(
-                    reader().read(data['subtitle_text']))
+            subtitle_text = data['subtitle_text_' + language]
+            if subtitle_text:
+                reader = detect_format(subtitle_text)
+                if reader:
+                    subtitle = WebVTTWriter().write(reader().read(subtitle_text))
+                    h = HTMLParser()
+                    self.subtitles[language] = h.unescape(subtitle)
 
-                filename = str(uuid.uuid4())
+                    self.create_subtitles_file(self.subtitles[language])
+                else:
+                    return Response(json.dumps(
+                        {'error': "Error occurred while saving VTT subtitles for language %s" % language.upper()}),
+                                    status=400, content_type='application/json', charset='utf8')
+        return {'result': 'success'}
 
-                f = codecs.open(
-                    settings.MEDIA_ROOT + 'subtitle/polish/' + filename, 'w',
-                    'utf-8')
+    def create_subtitles_file(self, subtitle_text):
+        if subtitle_text:
+            path = settings.MEDIA_ROOT + 'subtitles/'
+            if not os.path.exists(path):
+                os.makedirs(path)
 
-                h = HTMLParser()
-                f.write(h.unescape(subtitle))
-                f.close()
+            name = hashlib.sha256(subtitle_text).hexdigest() + ".vtt"
+            filepath = path + name
+            url = settings.MEDIA_URL + 'subtitles/' + name
 
-                self.subtitle_url = settings.MEDIA_URL + 'subtitle/polish/' + filename
-
-        self.source_url = data['source_url'].strip()
-        self.subtitle_text = data['subtitle_text']
-        self.start_time = ''.join(
-            data['start_time'].split())  # Remove whitespace
-        self.end_time = ''.join(data['end_time'].split())  # Remove whitespace
-
-        return {
-            'result': 'success',
-        }
+            if not os.path.isfile(filepath):
+                try:
+                    f = codecs.open(filepath, 'w', 'utf-8')
+                    f.write(subtitle_text)
+                    f.close()
+                except IOError:
+                    return None
+            return url
+        return None
