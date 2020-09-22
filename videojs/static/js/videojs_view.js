@@ -62,5 +62,6 @@ function videojsXBlockInitView(runtime, element) {
                 console.log(format);
             }
         });
+
     }
 }

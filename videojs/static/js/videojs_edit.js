@@ -9,13 +9,13 @@ function videojsXBlockInitStudio(runtime, element) {
         var data = {
             'display_name': $('#videojs_edit_display_name').val(),
             'url': $('#videojs_edit_url').val(),
-            'allow_download': $('#videojs_edit_allow_download').val(),
-            'source_text': $('#videojs_edit_source_text').val(),
-            'source_url': $('#videojs_edit_source_url').val(),
-            'subtitle_text': $('#videojs_edit_subtitle_text').val(),
-            'start_time': $('#videojs_edit_start_time').val(),
-            'end_time': $('#videojs_edit_end_time').val()
         };
+
+        $(".subtitle_text").each(function (index) {
+            data['subtitle_text_' + $(this).attr("data-language")] = $(this).val();
+        });
+
+        console.log(data);
 
         runtime.notify('save', {state: 'start'});
 

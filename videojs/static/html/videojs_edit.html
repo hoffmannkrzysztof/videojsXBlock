@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="wrapper-comp-settings editor-with-buttons is-active"
      id="settings-tab">
     <ul class="list-input settings-list">
@@ -5,102 +6,46 @@
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
                 <label class="label setting-label"
-                       for="videojs_edit_display_name">Nazwa wyświetlana</label>
+                       for="videojs_edit_display_name">{% trans "Display name" %}</label>
                 <input class="input setting-input"
                        id="videojs_edit_display_name" type="text"
                        value="{{ display_name }}">
             </div>
-            <span class="tip setting-help">Nazwa obecna jako nagłówek filmu</span>
         </li>
 
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
-                <label class="label setting-label" for="videojs_edit_url">URL
-                    filmu</label>
+                <label class="label setting-label" for="videojs_edit_url">{% trans "Movie URL/ID" %}</label>
                 <input class="input setting-input" id="videojs_edit_url"
                        type="text" value="{{ url }}">
             </div>
-            <span class="tip setting-help">Podaj id filmu lub wklej link
-                z serwisu youtube.com</span>
+            <span class="tip setting-help">{% trans "Type in movie id for uploader or paste youtube link" %}</span>
         </li>
 
+        {% for language in languages %}
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
                 <label class="label setting-label"
-                       for="videojs_edit_allow_download">Dozwolone pobieranie
-                    filmu</label>
-                <select class="input setting-input"
-                        id="videojs_edit_allow_download">
-                    <option %} %}selected{% allow_download endif if value="True"
-                            {%>Tak
-                    </option>
-                    <option %} %}selected{% allow_download endif if not
-                            value="False" {%>Nie
-                    </option>
-                </select>
-            </div>
-            <span class="tip setting-help">Pozwala określić czy umożliwić studentom pobieranie filmu</span>
-        </li>
-
-        <li class="field comp-setting-entry is-set">
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label"
-                       for="videojs_edit_subtitle_text">Polskie napisy</label>
+                       for="videojs_edit_subtitle_text_{{language}}">{% trans "Language"%}: {{language}}</label>
                 <textarea
-                        class="input setting-input"
-                        id="videojs_edit_subtitle_text"
-                        placeholder="Wklej treść pliku z napisami"
-                        style="display: inline-block;height: 200px;width: 384px;padding: 16px 12px;border: 1px solid #b2b2b2;">{{ subtitle_text }}</textarea>
-            </div>
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label"
-                       for="videojs_edit_subtitle_url">Odnośnik do twoich
-                    napisów</label>
-                <input class="input setting-input" id="videojs_edit_subtitle_url"
-                       placeholder="Odnośnik do napisów" readonly
-                       type="text" value="{{ subtitle_url }}">
-            </div>
-            <div class="wrapper-comp-setting" style="display: none">
-                <label class="label setting-label"
-                       for="videojs_edit_source_text">Source document button
-                    text</label>
-                <input class="input setting-input" id="videojs_edit_source_text"
-                       placeholder="Default : Download the source document" type="text"
-                       value="{{ source_text }}">
-            </div>
-            <div class="wrapper-comp-setting" style="display: none">
-                <label class="label setting-label"
-                       for="videojs_edit_source_url">Source document URL</label>
-                <input class="input setting-input" id="videojs_edit_source_url"
-                       type="text" value="{{ source_url }}">
+                        class="input setting-input collapsed subtitle_text"
+                        data-language="{{language}}"
+                        id="videojs_edit_subtitle_text_{{language}}"
+                        placeholder="{%trans 'Paste VTT subtitles text'%}"
+                        style="display: inline-block;height: 200px;width: 384px;padding: 16px 12px;border: 1px solid #b2b2b2;">{% for lang,text in subtitles.items %}{% if lang == language %}{{text}}{% endif %}{% endfor %}</textarea>
             </div>
         </li>
-
-        <li class="field comp-setting-entry is-set">
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label"
-                       for="videojs_edit_start_time">Czas rozpoczęcia</label>
-                <input class="input setting-input" id="videojs_edit_start_time"
-                       type="text" value="{{ start_time }}">
-            </div>
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label" for="videojs_edit_end_time">Czas
-                    zakończenia</label>
-                <input class="input setting-input" id="videojs_edit_end_time"
-                       type="text" value="{{ end_time }}">
-            </div>
-            <span class="tip setting-help">Czas rozpoczęcia i zakończenia filmu. Odpowiada 'video.mp4#t=startTime,endTime' w odnośniku.</span>
-        </li>
+        {% endfor %}
 
     </ul>
 
     <div class="xblock-actions">
         <ul>
             <li class="action-item">
-                <a class="button action-primary action-save" href="#">Zapisz</a>
+                <a class="button action-primary action-save" href="#">{% trans "Save" %}</a>
             </li>
             <li class="action-item">
-                <a class="button action-cancel" href="#">Anuluj</a>
+                <a class="button action-cancel" href="#">{% trans "Cancel" %}</a>
             </li>
         </ul>
     </div>
