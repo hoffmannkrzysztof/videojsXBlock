@@ -132,8 +132,6 @@
                                     });
 
                                     this.player.on('loadedmetadata', function () {
-                                        _this.player.play();
-
                                         Array.from(_this.containerDropdownElement.firstChild.childNodes).forEach(function (ele) {
                                             if (ele.dataset.code === quality.code) {
                                                 ele.setAttribute('class', 'current');
