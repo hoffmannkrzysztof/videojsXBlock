@@ -16,6 +16,6 @@
             browser that supports HTML5 video" %}</p>
         {% for lang, url in subtitles_url.items %}
         <track default kind='captions' src='{{ url }}' label="{{lang}}" srclang='{{lang}}'/>
-        {% endfor %}}
+        {% endfor %}
     </video>
 </div>
