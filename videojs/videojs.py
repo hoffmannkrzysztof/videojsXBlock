@@ -96,9 +96,10 @@ class videojsXBlock(XBlock):
             file = self.create_subtitles_file(subtitle_text)
             if file:
                 subtitles_url[lang] = file
-            elif lang == 'pl' and self.subtitle_url:
-                """Stara wersja zawierala jedynie napisy w jezyku PL. Dlatego musimy byc wsteczni kompatybilni"""
-                subtitles_url['pl'] = self.subtitle_url
+
+        if len(subtitles_url.get("pl", "")) == 0 and self.subtitle_url:
+            """Stara wersja zawierala jedynie napisy w jezyku PL. Dlatego musimy byc wsteczni kompatybilni"""
+            subtitles_url['pl'] = self.subtitle_url
 
         context = {
             'display_name': self.display_name,
