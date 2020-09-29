@@ -98,7 +98,7 @@ class videojsXBlock(XBlock):
                 subtitles_url[lang] = file
             elif lang == 'pl' and self.subtitle_url:
                 """Stara wersja zawierala jedynie napisy w jezyku PL. Dlatego musimy byc wsteczni kompatybilni"""
-                subtitles_url['pl'] = file
+                subtitles_url['pl'] = self.subtitle_url
 
         context = {
             'display_name': self.display_name,
@@ -123,9 +123,17 @@ class videojsXBlock(XBlock):
     def studio_view(self, context=None):
 
         if not 'pl' in self.subtitles and self.subtitle_url:
-            with open(self.subtitle_url, 'r') as f:
-                data = f.read()
-                self.subtitles['pl'] = data
+            if os.path.isfile(self.subtitle_url):
+                with open(self.subtitle_url, 'r') as f:
+                    data = f.read()
+                    self.subtitles['pl'] = data
+            elif self.subtitle_text:
+                reader = detect_format(self.subtitle_text)
+                if reader:
+                    subtitle = WebVTTWriter().write(reader().read(self.subtitle_text))
+                    h = HTMLParser()
+                    self.subtitles['pl'] = h.unescape(subtitle)
+                    self.create_subtitles_file(self.subtitles['pl'])
 
         context = {
             'display_name': self.display_name,
