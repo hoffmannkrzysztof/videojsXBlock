@@ -24,8 +24,8 @@ setup(
     ],
     install_requires=[
         'XBlock',
-        'pycaption==0.7.3',
-        'cssutils==0.9.10'
+        'le-pycaption==2.2.0a1',
+        'cssutils==1.0.2'
     ],
     entry_points={
         'xblock.v1': [
