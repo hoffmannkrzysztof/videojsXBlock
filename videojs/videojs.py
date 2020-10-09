@@ -18,6 +18,7 @@ from webob import Response
 import json
 import hashlib
 
+
 @XBlock.needs('i18n')
 @XBlock.wants('completion')
 class videojsXBlock(XBlock):
@@ -173,7 +174,13 @@ class videojsXBlock(XBlock):
                 else:
                     return Response(json.dumps(
                         {'error': "Error occurred while saving VTT subtitles for language %s" % language.upper()}),
-                                    status=400, content_type='application/json', charset='utf8')
+                        status=400, content_type='application/json', charset='utf8')
+            else:
+                self.subtitles[language] = ""
+                # We need to remove the old url for Polish subtitles so that they will not be re-imported
+                if language == 'pl' and self.subtitle_url:
+                    self.subtitle_url = None
+
         return {'result': 'success'}
 
     def create_subtitles_file(self, subtitle_text):
