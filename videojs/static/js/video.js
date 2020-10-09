@@ -13,9 +13,8 @@
 (function (global, factory) {
     global.videojs = factory(global.window, global.document);
 }(this, function (window$1, document) {
-    window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
+    window$1 = window$1;
     document = document && document.hasOwnProperty('default') ? document['default'] : document;
-
     var version = "7.6.6";
 
     /**

@@ -4,7 +4,7 @@
     <video oncontextmenu="return false;" class="video-js vjs-fluid" controls data-setup='{"language":"pl"}'
            id="{{ uid }}"
            preload="auto">
-        {% if 'youtube' in url or 'youtu.be' in url %}
+        {% if "youtube" in url or "youtu.be" in url %}
         <source src="{{ url }}"
                 type="video/youtube"/>
         {% else %}

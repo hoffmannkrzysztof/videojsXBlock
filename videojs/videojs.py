@@ -3,7 +3,8 @@
 import codecs
 import os
 import uuid
-from HTMLParser import HTMLParser
+from six.moves.html_parser import HTMLParser
+from six import text_type
 
 import pkg_resources
 from django.conf import settings
@@ -13,10 +14,15 @@ from pycaption.webvtt import WebVTTWriter
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict
-from xblock.fragment import Fragment
+from web_fragments.fragment import Fragment
 from webob import Response
 import json
 import hashlib
+
+def resource_string(path):
+    """Handy helper for getting resources from our kit."""
+    data = pkg_resources.resource_string(__name__, path)
+    return data.decode()
 
 @XBlock.needs('i18n')
 @XBlock.wants('completion')
@@ -72,7 +78,7 @@ class videojsXBlock(XBlock):
         """
         resource_content = pkg_resources.resource_string(__name__,
                                                          resource_path)
-        return unicode(resource_content)
+        return resource_content.decode("utf8")
 
     def render_template(self, template_path, context={}):
         """
@@ -173,7 +179,13 @@ class videojsXBlock(XBlock):
                 else:
                     return Response(json.dumps(
                         {'error': "Error occurred while saving VTT subtitles for language %s" % language.upper()}),
-                                    status=400, content_type='application/json', charset='utf8')
+                        status=400, content_type='application/json', charset='utf8')
+            else:
+                self.subtitles[language] = ""
+                # We need to remove the old url for Polish subtitles so that they will not be re-imported
+                if language == 'pl' and self.subtitle_url:
+                    self.subtitle_url = None
+
         return {'result': 'success'}
 
     def create_subtitles_file(self, subtitle_text):
