@@ -1,6 +1,25 @@
 /* Javascript for videojsXBlock. */
 function videojsXBlockInitStudio(runtime, element) {
 
+
+    $(".subtitle_text",element).each(function() {
+      if(!$(this).val().trim().length && $(this).attr("data-language") != 'pl')
+      {
+          $("#select_add_language").append(new Option($(this).attr("data-language"), $(this).attr("data-language")));
+          $(this).parents(".field").hide();
+      }
+    });
+
+    $("#add_lang_btn").click(function (){
+        var code = $("#select_add_language").val();
+        $("#lang-"+code).show();
+        location.hash = "#lang-" + code;
+    });
+
+
+
+
+
     $(element).find('.action-cancel').bind('click', function () {
         runtime.notify('cancel', {});
     });

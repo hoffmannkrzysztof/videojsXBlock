@@ -29,7 +29,7 @@ class videojsXBlock(XBlock):
     completion_mode = XBlockCompletionMode.COMPLETABLE
 
     languages = [
-        'pl', 'en', 'fr', 'de'
+        'pl', 'en', 'fr', 'de', 'es', 'ru', 'cn', 'pt', 'it', 'cz', 'sk', 'lv', 'ua', 'by'
     ]
 
     '''
