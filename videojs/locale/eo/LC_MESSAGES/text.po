@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-16 00:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/html/videojs_edit.html
+msgid "Display name"
+msgstr "Dïspläý nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: static/html/videojs_edit.html
+msgid "Movie URL/ID"
+msgstr "Mövïé ÛRL/ÌD Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: static/html/videojs_edit.html
+msgid "Type in movie id for uploader or paste youtube link"
+msgstr ""
+"Týpé ïn mövïé ïd för üplöädér ör pästé ýöütüßé lïnk Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт "
+"αмєт, ¢σηѕє¢тєтυя α#"
+
+#: static/html/videojs_edit.html
+msgid "Add new language"
+msgstr "Àdd néw längüägé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αм#"
+
+#: static/html/videojs_edit.html
+msgid "Add"
+msgstr "Àdd Ⱡ'σяєм#"
+
+#: static/html/videojs_edit.html
+msgid "Language"
+msgstr "Längüägé Ⱡ'σяєм ιρѕυм ∂#"
+
+#: static/html/videojs_edit.html
+msgid "Remove"
+msgstr "Rémövé Ⱡ'σяєм ιρѕυ#"
+
+#: static/html/videojs_edit.html
+msgid "Paste VTT subtitles text"
+msgstr "Pästé VTT süßtïtlés téxt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢ση#"
+
+#: static/html/videojs_edit.html
+msgid "Save"
+msgstr "Sävé Ⱡ'σяєм ι#"
+
+#: static/html/videojs_edit.html
+msgid "Cancel"
+msgstr "Çänçél Ⱡ'σяєм ιρѕυ#"
+
+#: videojs.py
+msgid "Polish"
+msgstr "Pölïsh Ⱡ'σяєм ιρѕυ#"
+
+#: videojs.py
+msgid "English"
+msgstr "Énglïsh Ⱡ'σяєм ιρѕυм #"
+
+#: videojs.py
+msgid "French"
+msgstr "Frénçh Ⱡ'σяєм ιρѕυ#"
+
+#: videojs.py
+msgid "Spanish"
+msgstr "Spänïsh Ⱡ'σяєм ιρѕυм #"
+
+#: videojs.py
+msgid "Russian"
+msgstr "Rüssïän Ⱡ'σяєм ιρѕυм #"
+
+#: videojs.py
+msgid "Chinese"
+msgstr "Çhïnésé Ⱡ'σяєм ιρѕυм #"
+
+#: videojs.py
+msgid "Portuguese"
+msgstr "Pörtügüésé Ⱡ'σяєм ιρѕυм ∂σłσ#"
+
+#: videojs.py
+msgid "Czech"
+msgstr "Çzéçh Ⱡ'σяєм ιρѕ#"
+
+#: videojs.py
+msgid "Slovak"
+msgstr "Slöväk Ⱡ'σяєм ιρѕυ#"
+
+#: videojs.py
+msgid "Latvian"
+msgstr "Lätvïän Ⱡ'σяєм ιρѕυм #"
+
+#: videojs.py
+msgid "Ukrainian"
+msgstr "Ûkräïnïän Ⱡ'σяєм ιρѕυм ∂σł#"
+
+#: videojs.py
+msgid "Belarusian"
+msgstr "Bélärüsïän Ⱡ'σяєм ιρѕυм ∂σłσ#"
+
+#: videojs.py
+msgid "Display Name"
+msgstr "Dïspläý Nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: videojs.py
+msgid "Video JS"
+msgstr "Vïdéö JS Ⱡ'σяєм ιρѕυм ∂#"
+
+#: videojs.py
+msgid "Youtube URL or Navoica movie ID"
+msgstr "Ýöütüßé ÛRL ör Nävöïçä mövïé ÌD Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: videojs.py
+msgid ""
+"Enter url from website youtube.com or use id number previously uploaded "
+"movie"
+msgstr ""
+"Éntér ürl fröm wéßsïté ýöütüßé.çöm ör üsé ïd nümßér prévïöüslý üplöädéd "
+"mövïé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: videojs.py
+msgid "Subtitle - Polish"
+msgstr "Süßtïtlé - Pölïsh Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмє#"
+
+#: videojs.py
+msgid "Paste subtitles VVT"
+msgstr "Pästé süßtïtlés VVT Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт,#"
+
+#: videojs.py
+msgid "Subtitle - URL - Polish"
+msgstr "Süßtïtlé - ÛRL - Pölïsh Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σ#"
+
+#: videojs.py
+msgid "Subtitles RAW"
+msgstr "Süßtïtlés RÀW Ⱡ'σяєм ιρѕυм ∂σłσя ѕι#"
+
+#: videojs.py
+msgid "Subtitles URL"
+msgstr "Süßtïtlés ÛRL Ⱡ'σяєм ιρѕυм ∂σłσя ѕι#"

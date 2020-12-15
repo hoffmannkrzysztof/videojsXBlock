@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# krystianlygas <krystian.lygas@gmail.com>, 2020
+# Krzysztof Hoffmann <Krzysztof.Hoffmann@opi.org.pl>, 2020
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-16 00:40+0100\n"
+"PO-Revision-Date: 2020-12-15 23:42+0000\n"
+"Last-Translator: Krzysztof Hoffmann <Krzysztof.Hoffmann@opi.org.pl>, 2020\n"
+"Language-Team: Polish (https://www.transifex.com/navoica/teams/104253/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: static/html/videojs_edit.html:9
+msgid "Display name"
+msgstr "Nazwa"
+
+#: static/html/videojs_edit.html:18
+msgid "Movie URL/ID"
+msgstr "Film URL lub ID"
+
+#: static/html/videojs_edit.html:22
+msgid "Type in movie id for uploader or paste youtube link"
+msgstr ""
+"Wpisz numer ID filmu z panelu do przesyłania filmów lub wklej link do "
+"serwisu youtube"
+
+#: static/html/videojs_edit.html:27
+msgid "Add new language"
+msgstr "Dodaj nowy język"
+
+#: static/html/videojs_edit.html:29
+msgid "Add"
+msgstr "Dodaj"
+
+#: static/html/videojs_edit.html:37
+msgid "Language"
+msgstr "Język"
+
+#: static/html/videojs_edit.html:37
+msgid "Remove"
+msgstr "Usuń"
+
+#: static/html/videojs_edit.html:43
+msgid "Paste VTT subtitles text"
+msgstr "Wklej napisy w formacie VTT"
+
+#: static/html/videojs_edit.html:55
+msgid "Save"
+msgstr "Zapisz"
+
+#: static/html/videojs_edit.html:58
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: videojs.py:34
+msgid "Polish"
+msgstr ""
+
+#: videojs.py:35
+msgid "English"
+msgstr ""
+
+#: videojs.py:36
+msgid "French"
+msgstr ""
+
+#: videojs.py:37
+msgid "Spanish"
+msgstr ""
+
+#: videojs.py:38
+msgid "Russian"
+msgstr ""
+
+#: videojs.py:39
+msgid "Chinese"
+msgstr "chiński"
+
+#: videojs.py:40
+msgid "Portuguese"
+msgstr ""
+
+#: videojs.py:41
+msgid "Czech"
+msgstr ""
+
+#: videojs.py:42
+msgid "Slovak"
+msgstr ""
+
+#: videojs.py:43
+msgid "Latvian"
+msgstr ""
+
+#: videojs.py:44
+msgid "Ukrainian"
+msgstr ""
+
+#: videojs.py:45
+msgid "Belarusian"
+msgstr ""
+
+#: videojs.py:51
+msgid "Display Name"
+msgstr "Nazwa"
+
+#: videojs.py:52
+msgid "Video JS"
+msgstr ""
+
+#: videojs.py:55
+msgid "Youtube URL or Navoica movie ID"
+msgstr "Adres Youtube lub ID filmu z Navoica.pl"
+
+#: videojs.py:58
+msgid ""
+"Enter url from website youtube.com or use id number previously uploaded "
+"movie"
+msgstr ""
+"Wpisz adres URL ze strony youtube.com lub użyj numeru identyfikacyjnego "
+"przesłanego wcześniej filmu"
+
+#: videojs.py:61
+msgid "Subtitle - Polish"
+msgstr "Napisy polskie"
+
+#: videojs.py:64
+msgid "Paste subtitles VVT"
+msgstr "Wklej napisy w formacie VTT"
+
+#: videojs.py:67
+msgid "Subtitle - URL - Polish"
+msgstr "Napisy - adres URL - polskie"
+
+#: videojs.py:72
+msgid "Subtitles RAW"
+msgstr "Napisy RAW"
+
+#: videojs.py:77
+msgid "Subtitles URL"
+msgstr "Napisy URLe"

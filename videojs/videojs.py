@@ -10,7 +10,6 @@ from django.conf import settings
 from django.template import Context, Template
 from pycaption import detect_format
 from pycaption.webvtt import WebVTTWriter
-from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict
 from xblock.fragment import Fragment
@@ -18,6 +17,7 @@ from xblockutils.resources import ResourceLoader
 from webob import Response
 import json
 import hashlib
+from django.utils import translation
 
 _ = lambda text: text
 loader = ResourceLoader(__name__)
@@ -30,7 +30,6 @@ class videojsXBlock(XBlock):
     Icon of the XBlock. Values : [other (default), video, problem]
     '''
     icon_class = "video"
-    completion_mode = XBlockCompletionMode.COMPLETABLE
 
     languages = {
         'pl': _('Polish'),
@@ -50,34 +49,33 @@ class videojsXBlock(XBlock):
     '''
     Fields
     '''
-    display_name = String(display_name="Display Name",
-                          default="Video JS",
-                          scope=Scope.settings,
-                          help="This name appears in the horizontal navigation at the top of the page.")
+    display_name = String(display_name=_("Display Name"),
+                          default=_("Video JS"),
+                          scope=Scope.settings)
 
-    url = String(display_name="Youtube URL or Navoica movie ID",
+    url = String(display_name=_("Youtube URL or Navoica movie ID"),
                  default="7b465d7b-6118-4b8a-80cd-3f40748fab74",
                  scope=Scope.content,
-                 help="Enter url from website youtube.com or use id number previously uploaded movie")
+                 help=_("Enter url from website youtube.com or use id number previously uploaded movie"))
 
     # old fallback
-    subtitle_text = String(display_name="Subtitle - Polish",
+    subtitle_text = String(display_name=_("Subtitle - Polish"),
                            default="",
                            scope=Scope.content,
-                           help="Paste subtitles VVT")
+                           help=_("Paste subtitles VVT"))
 
     # old fallback
-    subtitle_url = String(display_name="Subtitle - URL - Polish",
+    subtitle_url = String(display_name=_("Subtitle - URL - Polish"),
                           default="",
                           scope=Scope.content,
                           help="")
 
-    subtitles = Dict(display_name="Subtitles RAW",
+    subtitles = Dict(display_name=_("Subtitles RAW"),
                      default={},
                      scope=Scope.content
                      )
 
-    subtitles_url = Dict(display_name="Subtitles URL",
+    subtitles_url = Dict(display_name=_("Subtitles URL"),
                          default={},
                          scope=Scope.content
                          )
@@ -117,6 +115,8 @@ class videojsXBlock(XBlock):
             """Stara wersja zawierala jedynie napisy w jezyku PL. Dlatego musimy byc wsteczni kompatybilni"""
             subtitles_url['pl'] = self.subtitle_url
 
+        frag = Fragment()
+
         context = {
             'display_name': self.display_name,
             'url': self.url,
@@ -124,9 +124,12 @@ class videojsXBlock(XBlock):
             'subtitles_url': subtitles_url,
         }
 
-        html = self.render_template('static/html/videojs_view.html', context)
+        frag.add_content(loader.render_django_template(
+            'static/html/videojs_view.html',
+            context=context,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
 
-        frag = Fragment(html)
         frag.add_css(self.load_resource("static/css/video-js.css"))
         frag.add_css(self.load_resource("static/css/qualityselector.css"))
         frag.add_javascript(self.load_resource("static/js/video.js"))
@@ -134,6 +137,8 @@ class videojsXBlock(XBlock):
         frag.add_javascript(self.load_resource("static/js/qualityselector.js"))
         frag.add_javascript(self.load_resource("static/js/youtube.js"))
         frag.add_javascript(self.load_resource("static/js/videojs_view.js"))
+        frag.add_javascript(self.get_translation_content())
+
         frag.initialize_js('videojsXBlockInitView')
         return frag
 
@@ -162,9 +167,15 @@ class videojsXBlock(XBlock):
             'subtitles': self.subtitles,
         }
 
-        html = self.render_template('static/html/videojs_edit.html', context)
+        frag = Fragment()
 
-        frag = Fragment(html)
+        frag.add_content(loader.render_django_template(
+            'static/html/videojs_edit.html',
+            context=context,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
+
+        frag.add_javascript(self.get_translation_content())
         frag.add_javascript(self.load_resource("static/js/videojs_edit.js"))
         frag.initialize_js('videojsXBlockInitStudio')
         return frag
@@ -174,6 +185,8 @@ class videojsXBlock(XBlock):
         """
         The saving handler.
         """
+        i18n_ = self.runtime.service(self, "i18n").ugettext
+
         self.display_name = data['display_name']
         self.url = data['url'].strip()
 
@@ -189,7 +202,7 @@ class videojsXBlock(XBlock):
                     self.create_subtitles_file(self.subtitles[language])
                 else:
                     return Response(json.dumps(
-                        {'error': "Error occurred while saving VTT subtitles for language %s" % language.upper()}),
+                        {'error': i18n_("Error occurred while saving VTT subtitles for language %s") % language.upper()}),
                         status=400, content_type='application/json', charset='utf8')
             else:
                 self.subtitles[language] = ""
@@ -218,3 +231,15 @@ class videojsXBlock(XBlock):
                     return None
             return url
         return None
+
+    def resource_string(self, path):
+        data = pkg_resources.resource_string(__name__, path)
+        return data.decode('utf8')
+
+    def get_translation_content(self):
+        try:
+            return self.resource_string('static/js/translations/{lang}/text.js'.format(
+                lang=translation.get_language(),
+            ))
+        except IOError:
+            return self.resource_string('static/js/translations/en/text.js')
