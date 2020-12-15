@@ -14,9 +14,13 @@ from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict
 from xblock.fragment import Fragment
+from xblockutils.resources import ResourceLoader
 from webob import Response
 import json
 import hashlib
+
+_ = lambda text: text
+loader = ResourceLoader(__name__)
 
 
 @XBlock.needs('i18n')
@@ -28,9 +32,20 @@ class videojsXBlock(XBlock):
     icon_class = "video"
     completion_mode = XBlockCompletionMode.COMPLETABLE
 
-    languages = [
-        'pl', 'en', 'fr', 'de', 'es', 'ru', 'cn', 'pt', 'it', 'cz', 'sk', 'lv', 'ua', 'by'
-    ]
+    languages = {
+        'pl': _('Polish'),
+        'en': _('English'),
+        'fr': _('French'),
+        'es': _('Spanish'),
+        'ru': _('Russian'),
+        'cn': _('Chinese'),
+        'pt': _('Portuguese'),
+        'cz': _('Czech'),
+        'sk': _('Slovak'),
+        'lv': _('Latvian'),
+        'ua': _('Ukrainian'),
+        'by': _('Belarusian'),
+    }
 
     '''
     Fields
@@ -137,12 +152,14 @@ class videojsXBlock(XBlock):
                     self.subtitles['pl'] = h.unescape(subtitle)
                     self.create_subtitles_file(self.subtitles['pl'])
 
+        languages_subtitles = {code: {'name': self.languages[code], 'subtitle': self.subtitles[code]} for code in
+                               self.languages.keys()}
+
         context = {
             'display_name': self.display_name,
             'url': self.url.strip(),
-            'languages': self.languages,
-            'subtitles': self.subtitles
-
+            'languages': languages_subtitles,
+            'subtitles': self.subtitles,
         }
 
         html = self.render_template('static/html/videojs_edit.html', context)
@@ -160,9 +177,8 @@ class videojsXBlock(XBlock):
         self.display_name = data['display_name']
         self.url = data['url'].strip()
 
-        for language in self.languages:
-
-            subtitle_text = data['subtitle_text_' + language]
+        for language in self.languages.keys():
+            subtitle_text = data['subtitle_text_' + language].strip()
             if subtitle_text:
                 reader = detect_format(subtitle_text)
                 if reader:
