@@ -157,7 +157,7 @@ class videojsXBlock(XBlock):
                     self.subtitles['pl'] = h.unescape(subtitle)
                     self.create_subtitles_file(self.subtitles['pl'])
 
-        languages_subtitles = {code: {'name': self.languages[code], 'subtitle': self.subtitles[code]} for code in
+        languages_subtitles = {code: {'name': self.languages[code], 'subtitle': self.subtitles.get(code, '')} for code in
                                self.languages.keys()}
 
         context = {
