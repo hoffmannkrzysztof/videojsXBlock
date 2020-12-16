@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-16 00:40+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: static/html/videojs_edit.html:9
+msgid "Display name"
+msgstr ""
+
+#: static/html/videojs_edit.html:18
+msgid "Movie URL/ID"
+msgstr ""
+
+#: static/html/videojs_edit.html:22
+msgid "Type in movie id for uploader or paste youtube link"
+msgstr ""
+
+#: static/html/videojs_edit.html:27
+msgid "Add new language"
+msgstr ""
+
+#: static/html/videojs_edit.html:29
+msgid "Add"
+msgstr ""
+
+#: static/html/videojs_edit.html:37
+msgid "Language"
+msgstr ""
+
+#: static/html/videojs_edit.html:37
+msgid "Remove"
+msgstr ""
+
+#: static/html/videojs_edit.html:43
+msgid "Paste VTT subtitles text"
+msgstr ""
+
+#: static/html/videojs_edit.html:55
+msgid "Save"
+msgstr ""
+
+#: static/html/videojs_edit.html:58
+msgid "Cancel"
+msgstr ""
+
+#: videojs.py:34
+msgid "Polish"
+msgstr ""
+
+#: videojs.py:35
+msgid "English"
+msgstr ""
+
+#: videojs.py:36
+msgid "French"
+msgstr ""
+
+#: videojs.py:37
+msgid "Spanish"
+msgstr ""
+
+#: videojs.py:38
+msgid "Russian"
+msgstr ""
+
+#: videojs.py:39
+msgid "Chinese"
+msgstr ""
+
+#: videojs.py:40
+msgid "Portuguese"
+msgstr ""
+
+#: videojs.py:41
+msgid "Czech"
+msgstr ""
+
+#: videojs.py:42
+msgid "Slovak"
+msgstr ""
+
+#: videojs.py:43
+msgid "Latvian"
+msgstr ""
+
+#: videojs.py:44
+msgid "Ukrainian"
+msgstr ""
+
+#: videojs.py:45
+msgid "Belarusian"
+msgstr ""
+
+#: videojs.py:51
+msgid "Display Name"
+msgstr ""
+
+#: videojs.py:52
+msgid "Video JS"
+msgstr ""
+
+#: videojs.py:55
+msgid "Youtube URL or Navoica movie ID"
+msgstr ""
+
+#: videojs.py:58
+msgid ""
+"Enter url from website youtube.com or use id number previously uploaded movie"
+msgstr ""
+
+#: videojs.py:61
+msgid "Subtitle - Polish"
+msgstr ""
+
+#: videojs.py:64
+msgid "Paste subtitles VVT"
+msgstr ""
+
+#: videojs.py:67
+msgid "Subtitle - URL - Polish"
+msgstr ""
+
+#: videojs.py:72
+msgid "Subtitles RAW"
+msgstr ""
+
+#: videojs.py:77
+msgid "Subtitles URL"
+msgstr ""
