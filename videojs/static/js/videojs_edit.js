@@ -3,7 +3,7 @@ function videojsXBlockInitStudio(runtime, element) {
 
 
     $(".subtitle_text",element).each(function() {
-      if(!$(this).val().trim().length && $(this).attr("data-language") !== 'pl')
+      if(!$(this).val().trim().length && $(this).attr("data-code") !== 'pl')
       {
           $("#select_add_language").append(new Option($(this).attr("data-language"), $(this).attr("data-code")));
           $(this).parents(".field").hide();
