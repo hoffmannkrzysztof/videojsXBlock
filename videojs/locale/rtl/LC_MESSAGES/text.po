@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-16 00:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: rtl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/html/videojs_edit.html
+msgid "Display name"
+msgstr "Đᴉsdlɐʎ nɐɯǝ"
+
+#: static/html/videojs_edit.html
+msgid "Movie URL/ID"
+msgstr "Møʌᴉǝ ɄɌŁ/ƗĐ"
+
+#: static/html/videojs_edit.html
+msgid "Type in movie id for uploader or paste youtube link"
+msgstr "Ŧʎdǝ ᴉn ɯøʌᴉǝ ᴉd ɟøɹ ndløɐdǝɹ øɹ dɐsʇǝ ʎønʇnbǝ lᴉnʞ"
+
+#: static/html/videojs_edit.html
+msgid "Add new language"
+msgstr "Ⱥdd nǝʍ lɐnƃnɐƃǝ"
+
+#: static/html/videojs_edit.html
+msgid "Add"
+msgstr "Ⱥdd"
+
+#: static/html/videojs_edit.html
+msgid "Language"
+msgstr "Łɐnƃnɐƃǝ"
+
+#: static/html/videojs_edit.html
+msgid "Remove"
+msgstr "Ɍǝɯøʌǝ"
+
+#: static/html/videojs_edit.html
+msgid "Paste VTT subtitles text"
+msgstr "Ᵽɐsʇǝ VŦŦ snbʇᴉʇlǝs ʇǝxʇ"
+
+#: static/html/videojs_edit.html
+msgid "Save"
+msgstr "Sɐʌǝ"
+
+#: static/html/videojs_edit.html
+msgid "Cancel"
+msgstr "Ȼɐnɔǝl"
+
+#: videojs.py
+msgid "Polish"
+msgstr "Ᵽølᴉsɥ"
+
+#: videojs.py
+msgid "English"
+msgstr "Ɇnƃlᴉsɥ"
+
+#: videojs.py
+msgid "French"
+msgstr "Fɹǝnɔɥ"
+
+#: videojs.py
+msgid "Spanish"
+msgstr "Sdɐnᴉsɥ"
+
+#: videojs.py
+msgid "Russian"
+msgstr "Ɍnssᴉɐn"
+
+#: videojs.py
+msgid "Chinese"
+msgstr "Ȼɥᴉnǝsǝ"
+
+#: videojs.py
+msgid "Portuguese"
+msgstr "Ᵽøɹʇnƃnǝsǝ"
+
+#: videojs.py
+msgid "Czech"
+msgstr "Ȼzǝɔɥ"
+
+#: videojs.py
+msgid "Slovak"
+msgstr "Sløʌɐʞ"
+
+#: videojs.py
+msgid "Latvian"
+msgstr "Łɐʇʌᴉɐn"
+
+#: videojs.py
+msgid "Ukrainian"
+msgstr "Ʉʞɹɐᴉnᴉɐn"
+
+#: videojs.py
+msgid "Belarusian"
+msgstr "Ƀǝlɐɹnsᴉɐn"
+
+#: videojs.py
+msgid "Display Name"
+msgstr "Đᴉsdlɐʎ Nɐɯǝ"
+
+#: videojs.py
+msgid "Video JS"
+msgstr "Vᴉdǝø ɈS"
+
+#: videojs.py
+msgid "Youtube URL or Navoica movie ID"
+msgstr "Ɏønʇnbǝ ɄɌŁ øɹ Nɐʌøᴉɔɐ ɯøʌᴉǝ ƗĐ"
+
+#: videojs.py
+msgid ""
+"Enter url from website youtube.com or use id number previously uploaded "
+"movie"
+msgstr ""
+"Ɇnʇǝɹ nɹl ɟɹøɯ ʍǝbsᴉʇǝ ʎønʇnbǝ.ɔøɯ øɹ nsǝ ᴉd nnɯbǝɹ dɹǝʌᴉønslʎ ndløɐdǝd "
+"ɯøʌᴉǝ"
+
+#: videojs.py
+msgid "Subtitle - Polish"
+msgstr "Snbʇᴉʇlǝ - Ᵽølᴉsɥ"
+
+#: videojs.py
+msgid "Paste subtitles VVT"
+msgstr "Ᵽɐsʇǝ snbʇᴉʇlǝs VVŦ"
+
+#: videojs.py
+msgid "Subtitle - URL - Polish"
+msgstr "Snbʇᴉʇlǝ - ɄɌŁ - Ᵽølᴉsɥ"
+
+#: videojs.py
+msgid "Subtitles RAW"
+msgstr "Snbʇᴉʇlǝs ɌȺW"
+
+#: videojs.py
+msgid "Subtitles URL"
+msgstr "Snbʇᴉʇlǝs ɄɌŁ"

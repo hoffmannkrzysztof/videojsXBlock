@@ -22,17 +22,27 @@
             <span class="tip setting-help">{% trans "Type in movie id for uploader or paste youtube link" %}</span>
         </li>
 
-        {% for language in languages %}
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
+                <label for="select_add_language" class="label setting-label">{% trans "Add new language" %}</label>
+                <select class="input setting-input" id="select_add_language"></select>
+                <button style="padding: 10px;" id="add_lang_btn">{% trans "Add" %}</button>
+            </div>
+        </li>
+
+        {% for code, data in languages.items %}
+        <li class="field comp-setting-entry is-set" id="lang-{{code}}">
+            <div class="wrapper-comp-setting">
                 <label class="label setting-label"
-                       for="videojs_edit_subtitle_text_{{language}}">{% trans "Language"%}: {{language}}</label>
+                       for="videojs_edit_subtitle_text_{{code}}">{% trans "Language" %}: {% trans data.name %}<br/><br/><button class="remove_lang_btn">{% trans "Remove" %}</button></label>
                 <textarea
                         class="input setting-input collapsed subtitle_text"
-                        data-language="{{language}}"
-                        id="videojs_edit_subtitle_text_{{language}}"
+                        data-code="{{code}}"
+                        data-language="{% trans data.name %}"
+                        id="videojs_edit_subtitle_text_{{code}}"
                         placeholder="{%trans 'Paste VTT subtitles text'%}"
-                        style="display: inline-block;height: 200px;width: 384px;padding: 16px 12px;border: 1px solid #b2b2b2;">{% for lang,text in subtitles.items %}{% if lang == language %}{{text}}{% endif %}{% endfor %}</textarea>
+                        style="display: inline-block;height: 200px;width: 45%;padding: 0x;border: 1px solid #b2b2b2;">{% spaceless %}{{data.subtitle}}{% endspaceless %}</textarea><br/>
+
             </div>
         </li>
         {% endfor %}
